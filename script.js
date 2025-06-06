@@ -34,3 +34,53 @@ const songs = [
         albumArt: './Accets/Images/size_m.jpg'
     }
 ];
+
+let songIndex = 0;
+let isPlaying = false;
+
+// Load song details
+function loadSong(song) {
+    title.textContent = song.title;
+    artist.textContent = song.artist;
+    audio.src = song.src;
+    albumArt.src = song.albumArt;
+    updatePlaylistActiveSong();
+}
+
+// Play song
+function playSong() {
+    isPlaying = true;
+    playerContainer.classList.add('playing');
+    playBtn.querySelector('i.fas').classList.remove('fa-play');
+    playBtn.querySelector('i.fas').classList.add('fa-pause');
+    audio.play();
+}
+
+// Pause song
+function pauseSong() {
+    isPlaying = false;
+    playerContainer.classList.remove('playing');
+    playBtn.querySelector('i.fas').classList.remove('fa-pause');
+    playBtn.querySelector('i.fas').classList.add('fa-play');
+    audio.pause();
+}
+
+// Previous song
+function prevSong() {
+    songIndex--;
+    if (songIndex < 0) {
+        songIndex = songs.length - 1;
+    }
+    loadSong(songs[songIndex]);
+    playSong();
+}
+
+// Next song
+function nextSong() {
+    songIndex++;
+    if (songIndex > songs.length - 1) {
+        songIndex = 0;
+    }
+    loadSong(songs[songIndex]);
+    playSong();
+}

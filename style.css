@@ -118,3 +118,116 @@ h3 {
     transform: scale(1.1);
     color: #ffcc00; /* Highlight on hover */
 }
+
+.main-play {
+    font-size: 2.5em;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.main-play:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ffcc00;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.volume-container i {
+    font-size: 1.2em;
+    margin: 0 10px;
+    color: #e0e0e0;
+}
+
+#volume-slider {
+    width: 120px;
+    height: 6px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+    transition: opacity .2s;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffcc00;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.playlist-container {
+    margin-top: 30px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.playlist-container h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+}
+
+#playlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+#playlist li {
+    padding: 8px 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-radius: 5px;
+    color: #e0e0e0;
+}
+
+#playlist li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#playlist li.active-song {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Scrollbar styling for playlist */
+.playlist-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
