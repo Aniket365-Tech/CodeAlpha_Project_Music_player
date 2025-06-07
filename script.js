@@ -84,3 +84,80 @@ function nextSong() {
     loadSong(songs[songIndex]);
     playSong();
 }
+
+// Update progress bar
+function updateProgress(e) {
+    const { duration, currentTime } = e.srcElement;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+
+    // Update time displays
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        let seconds = Math.floor(time % 60);
+        if (seconds < 10) {
+            seconds = `0${seconds}`;
+        }
+        return `${minutes}:${seconds}`;
+    };
+
+    if (duration) {
+        durationSpan.textContent = formatTime(duration);
+    }
+    currentTimeSpan.textContent = formatTime(currentTime);
+}
+
+// Set progress
+function setProgress(e) {
+    const width = this.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+    audio.currentTime = (clickX / width) * duration;
+}
+
+// Set volume
+function setVolume() {
+    audio.volume = volumeSlider.value;
+}
+
+// Populate playlist
+function populatePlaylist() {
+    playlistUl.innerHTML = ''; // Clear existing list
+    songs.forEach((song, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${song.title} - ${song.artist}`;
+        li.dataset.index = index;
+        li.addEventListener('click', () => {
+            songIndex = index;
+            loadSong(songs[songIndex]);
+            playSong();
+        });
+        playlistUl.appendChild(li);
+    });
+    updatePlaylistActiveSong();
+}
+
+// Update active song in playlist
+function updatePlaylistActiveSong() {
+    const playlistItems = document.querySelectorAll('#playlist li');
+    playlistItems.forEach((item, index) => {
+        if (index === songIndex) {
+            item.classList.add('active-song');
+        } else {
+            item.classList.remove('active-song');
+        }
+    });
+}
+
+// Event Listeners
+playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
+prevBtn.addEventListener('click', prevSong);
+nextBtn.addEventListener('click', nextSong);
+audio.addEventListener('timeupdate', updateProgress);
+progressContainer.addEventListener('click', setProgress);
+audio.addEventListener('ended', nextSong); // Play next song when current ends
+volumeSlider.addEventListener('input', setVolume);
+
+// Initial load
+loadSong(songs[songIndex]);
+populatePlaylist();
